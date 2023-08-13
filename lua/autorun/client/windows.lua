@@ -198,8 +198,13 @@ function ABOUT_PANEL:Init()
     text:SetPos(5, 5)
     text:SetSize(460, 90)
 
+    if TeraLib then
+        TeraLib.vgui.PoweredBy {parent = self, dock = {BOTTOM}, dockmargin = {3, 3, 3, 3}, size = {1, 70}, background = Color(88,88,88), poweredby = '#TeraLib_powered_by', download = '#TeraLib_download'}
+    end
+
     local people = vgui.Create('DPanel', self)
     people:Dock(BOTTOM)
+    people:DockMargin(3, 0, 3, 3)
     people:SetBackgroundColor(Color(100, 100, 100))
     people:SetSize(200, 230)
 

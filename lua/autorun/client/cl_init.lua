@@ -1,5 +1,4 @@
 SSB = SSB or {}
-TeraLib = TeraLib or {}
 
 local function switch_keys_and_values(table)
     local new_table = {}
@@ -52,6 +51,30 @@ concommand.Add('simple_skin_blacklist_menu', function()
     
 end)
 
+function checkteralib()
+    if TeraLib then return end
+
+    local panel = vgui.Create('DFrame')
+    panel:SetSize(500, 140)
+    panel:SetTitle('#Whops')
+    panel:Center()
+    panel:MakePopup()
+
+    local title = vgui.Create('DLabel', panel)
+    title:Dock(FILL)
+    title:SetText('#Whoops')
+
+    local button = vgui.Create('DButton', panel)
+    button:SetText('#Install')
+    button:Dock(BOTTOM)
+    button:SetSize(70, 20)
+    button:DockMargin(210, 0, 210, 0)
+    function button:DoClick()
+        gui.OpenURL('https://steamcommunity.com/sharedfiles/filedetails/?id=3013984464')
+    end
+
+end
+
 net.Receive('ssb_death', function()
     local cur_model = GetConVar('cl_playermodel'):GetString()
     if !SSB.data.disallowed_skins[cur_model] then return end
@@ -67,6 +90,8 @@ net.Receive('ssb_death', function()
     net.Start('ssb_death')
     net.SendToServer()
 end)
+
+hook.Add('InitPostEntity', 'checkteralib', checkteralib)
 
 hook.Add('PlayerAuthed', 'SSB_Auto_Update', function()
     net.Start('ssb_refresh')
