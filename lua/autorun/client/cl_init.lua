@@ -42,12 +42,12 @@ concommand.Add('simple_skin_blacklist_menu', function()
 
 	if !LocalPlayer():IsSuperAdmin() then SSB:Error(language.GetPhrase('#SSB.no_access')) return end
 
-    SSB.panel = vgui.Create("DFrame")
-    SSB:make_main_panel(SSB.panel)
-
     net.Start('ssb_refresh')
     net.WriteBit(0)
     net.SendToServer()
+
+    SSB.panel = vgui.Create("DFrame")
+    SSB:make_main_panel(SSB.panel)
     
 end)
 
